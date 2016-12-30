@@ -10,16 +10,16 @@ export type CodeCell = {|
   +outputs: Array<string>,
 |}
 
-export type MarkdownCell = {
+export type MarkdownCell = {|
   +type: 'markdown',
   +source: string,
-}
+|}
 
 export type Cell = CodeCell | MarkdownCell
 
 export type Notebook = {|
   +cellMap: Map<string, Cell>,
-  +cellOrder: Array<Cell>
+  +cellOrder: Array<Cell>,
 |}
 
 export const initialNotebook = {
@@ -49,7 +49,6 @@ function uncurriedInsert(index, item, list) {
     _.slice(index, list.length, list)
   )
 }
-
 const insert = _.curry(uncurriedInsert)
 
 export function notebookReducer(notebook: Notebook = initialNotebook, action: CellAction): Notebook {
