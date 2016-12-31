@@ -46,3 +46,12 @@ store.dispatch({
   source: 'WOOOO',
   id: '2',
 })
+
+store.dispatch({
+  type: 'APPEND_OUTPUT',
+  output: {
+    data: {},
+    metadata: {},
+  },
+  id: '2',
+})

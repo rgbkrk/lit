@@ -12,8 +12,27 @@ type CellProps = {
   cell: Cell,
 }
 
+export const Editor = (props: {source: string}): React.Element<any> => {
+  return <pre>{props.source}</pre>
+}
+
+export const Outputs = (props: { outputs: Array<Output> }): React.Element<any> => {
+  return (
+    <ul>
+      {
+        props.outputs.map((output, idx) => <li key={idx}>{JSON.stringify(output)}</li>)
+      }
+    </ul>
+  )
+}
+
 export const CellEditor = (props: CellProps): React.Element<any> => {
-  return <pre>{props.cell.source}</pre>
+  return (
+    <div>
+      <Editor source={props.cell.source} />
+      <Outputs outputs={props.cell.outputs} />
+    </div>
+  )
 }
 
 export default class NotebookEditor extends React.Component{

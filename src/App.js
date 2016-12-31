@@ -25,8 +25,7 @@ class PresentationalApp extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Notebook time!</h2>
+          <h2>{"{lit}erate"}</h2>
         </div>
         <NotebookEditor notebook={this.props.notebook} />
       </div>
