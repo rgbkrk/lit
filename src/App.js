@@ -4,27 +4,17 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { connect } from 'react-redux';
+
 import NotebookEditor from './components/notebook-editor';
 
 const _ = require('lodash/fp');
-
-import {
-  initialNotebook,
-  emptyCodeCell,
-} from './reducers';
-
-// Silly default notebook for now
-const defaultNotebook = _.cloneDeep(initialNotebook);
-const cell = _.cloneDeep(emptyCodeCell);
-cell.source = 'hey'
-defaultNotebook.cellMap['1'] = cell;
-defaultNotebook.cellOrder.push('1');
 
 type Props = {
   +notebook: Notebook,
 }
 
-class App extends Component {
+class PresentationalApp extends Component {
   props: Props;
 
   static defaultProps: {
@@ -44,6 +34,10 @@ class App extends Component {
   }
 }
 
-App.defaultProps = { notebook: defaultNotebook };
+const mapStateToProps = (state: State) => state;
+
+const App = connect(
+  mapStateToProps
+)(PresentationalApp)
 
 export default App;

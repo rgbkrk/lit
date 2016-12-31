@@ -41,8 +41,10 @@ export function notebookReducer(notebook: Notebook = initialNotebook, action: Ce
         notebook
       )
     case 'NEW_CELL_BEFORE':
-      const { cellType, id } = action;
-      const cell = cellType === 'markdown' ? emptyMarkdownCell : emptyCodeCell;
+      const { cellType, id, source } = action;
+      const cell = _.cloneDeep(cellType === 'markdown' ? emptyMarkdownCell : emptyCodeCell);
+      cell.source = source;
+
       const cellID: string = _.uniqueId()
       const index: number = Math.max(_.indexOf(id, notebook.cellOrder), 0)
 
@@ -50,8 +52,7 @@ export function notebookReducer(notebook: Notebook = initialNotebook, action: Ce
         _.set(['cellMap', cellID], cell),
         _.update(['cellOrder'], insert(index, cellID))
       ])(notebook)
-
     default:
-      throw new Error(`unrecognized action type "${action.type}"`)
+      return notebook
   }
 }

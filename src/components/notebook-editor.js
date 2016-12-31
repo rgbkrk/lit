@@ -20,7 +20,6 @@ export default class NotebookEditor extends React.Component{
   props: Props;
 
   render() {
-    console.log(this.props);
     return (
       <div>
         {

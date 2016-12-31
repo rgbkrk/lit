@@ -29,4 +29,8 @@ export type Notebook = {|
 export type CellAction =
     {| type: 'APPEND_OUTPUT', id: string, output: Output |}
   | {| type: 'CHANGE_TEXT', id: string, source: string |}
-  | {| type: 'NEW_CELL_AFTER', id: string, cellType: CellType |}
+  | {| type: 'NEW_CELL_BEFORE', id: string, cellType: CellType, ?source: string |}
+
+export type State = {
+  notebook: Notebook,
+}
