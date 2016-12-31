@@ -506,3 +506,20 @@ declare module 'lodash' {
 
   declare var exports: Lodash;
 }
+
+/*
+declare module 'lodash/fp' {
+  declare class LodashFP {
+    curry(func: Function, arity?: number): Function;
+
+    indexOf<T>(value: T, array: ?Array<T>): number;
+    uniqueId(prefix?: string): string;
+    set<T: Object>(path: Array<string>|string): ( (value: any, object: T) => T ) | (value: any) => (object: T) => T;
+    set<T: Object>(path: Array<string>|string, value: any, object: T): T;
+
+    flow(funcs?: Array<Function>): Function;
+  }
+
+  declare var exports: LodashFP;
+}
+*/

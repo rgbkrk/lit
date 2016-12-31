@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 
-const red = require('./reducers')
-global.red = red;
+import { initialNotebook } from './reducers';
 
 ReactDOM.render(
   <App />,

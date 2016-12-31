@@ -2,48 +2,23 @@
 
 const _ = require('lodash/fp')
 
-export type CellType = 'code' | 'markdown'
-
-export type CodeCell = {|
-  +type: 'code',
-  +source: string,
-  +outputs: Array<string>,
-|}
-
-export type MarkdownCell = {|
-  +type: 'markdown',
-  +source: string,
-|}
-
-export type Cell = CodeCell | MarkdownCell
-
-export type Notebook = {|
-  +cellMap: Map<string, Cell>,
-  +cellOrder: Array<Cell>,
-|}
-
-export const initialNotebook = {
-  cellMap: new Map(),
+export const initialNotebook : Notebook = {
+  cellMap: {},
   cellOrder: [],
 }
 
-export const emptyCodeCell = {
+export const emptyCodeCell : CodeCell = {
   source: '',
   type: 'code',
   outputs: [],
 }
 
-export const emptyMarkdownCell = {
+export const emptyMarkdownCell : MarkdownCell = {
   source: '',
   type: 'markdown',
 }
 
-export type CellAction =
-    {| type: 'APPEND_OUTPUT', id: string, output: string |}
-  | {| type: 'CHANGE_TEXT', id: string, source: string |}
-  | {| type: 'NEW_CELL_AFTER', id: string, cellType: CellType |}
-
-function uncurriedInsert(index, item, list) {
+function uncurriedInsert<T>(index: number, item: T, list: Array<T>) {
   return _.concat(
     _.concat(_.slice(0, index, list), item),
     _.slice(index, list.length, list)
@@ -71,14 +46,12 @@ export function notebookReducer(notebook: Notebook = initialNotebook, action: Ce
       const cellID: string = _.uniqueId()
       const index: number = Math.max(_.indexOf(id, notebook.cellOrder), 0)
 
-      debugger;
-
       return _.flow([
         _.set(['cellMap', cellID], cell),
         _.update(['cellOrder'], insert(index, cellID))
       ])(notebook)
 
     default:
-      return notebook
+      throw new Error(`unrecognized action type "${action.type}"`)
   }
 }
