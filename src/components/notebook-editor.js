@@ -8,10 +8,6 @@ type Props = {
   notebook: Notebook,
 }
 
-type CellProps = {
-  cell: Cell,
-}
-
 export const Editor = (props: {source: string}): React.Element<any> => {
   return <pre>{props.source}</pre>
 }
@@ -26,13 +22,41 @@ export const Outputs = (props: { outputs: Array<Output> }): React.Element<any> =
   )
 }
 
-export const CellEditor = (props: CellProps): React.Element<any> => {
+export const MarkdownCellEditor = (props: MarkdownData): React.Element<any> => {
   return (
     <div>
-      <Editor source={props.cell.source} />
-      <Outputs outputs={props.cell.outputs} />
+      <Editor source={props.source} />
     </div>
   )
+}
+
+export class CodeCellEditor extends React.PureComponent {
+  props: CodeData;
+
+  render() {
+    return (
+      <div>
+        <Editor source={this.props.source} />
+        <Outputs outputs={this.props.outputs} />
+      </div>
+    );
+  }
+}
+
+export class CellEditor extends React.PureComponent {
+  props: {
+    cell: Cell,
+  }
+
+  render() {
+    if(this.props.cell.type === 'code') {
+      return <CodeCellEditor
+        source={this.props.cell.data.source}
+        outputs={this.props.cell.data.outputs}
+      />
+    }
+    return <MarkdownCellEditor source={this.props.cell.data.source} />
+  }
 }
 
 export default class NotebookEditor extends React.Component{

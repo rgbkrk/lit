@@ -7,18 +7,26 @@ export type Output = {|
   metadata: Object,
 |}
 
-export type CodeCell = {|
-  +type: 'code',
+export type CodeData = {
   +source: string,
   +outputs: Array<Output>,
-|}
+}
+
+export type MarkdownData = {
+  +source: string,
+}
 
 export type MarkdownCell = {|
-  +type: 'markdown',
-  +source: string,
+  type: 'markdown',
+  data: MarkdownData,
 |}
 
-export type Cell = CodeCell | MarkdownCell
+export type CodeCell = {|
+  type: 'code',
+  data: CodeData,
+|}
+
+export type Cell = MarkdownCell | CodeCell
 
 export type Notebook = {|
   // +cellMap: Map<string, Cell>,
@@ -29,7 +37,7 @@ export type Notebook = {|
 export type CellAction =
     {| type: 'APPEND_OUTPUT', id: string, output: Output |}
   | {| type: 'CHANGE_TEXT', id: string, source: string |}
-  | {| type: 'NEW_CELL_BEFORE', id: string, cellType: CellType, ?source: string |}
+  | {| type: 'NEW_CELL_BEFORE', id: string, cellType: CellType, source?: string |}
 
 export type State = {
   notebook: Notebook,

@@ -1,3 +1,5 @@
+/* @flow */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -30,21 +32,21 @@ ReactDOM.render(
 store.dispatch({
   type: 'NEW_CELL_BEFORE',
   cellType: 'code',
-  id: 'newb',
+  id: 'there aren\'t any cells yet',
   source: 'hey there',
 })
 
 store.dispatch({
   type: 'NEW_CELL_BEFORE',
   cellType: 'code',
-  id: 'newb',
+  id: 'not like I know what cells there are',
   source: 'hey there again',
 })
 
 store.dispatch({
   type: 'CHANGE_TEXT',
   source: 'WOOOO',
-  id: '2',
+  id: '1',
 })
 
 store.dispatch({
@@ -54,4 +56,11 @@ store.dispatch({
     metadata: {},
   },
   id: '2',
+})
+
+store.dispatch({
+  type: 'NEW_CELL_BEFORE',
+  cellType: 'markdown',
+  id: 'not like I know what cells there are',
+  source: 'markdown is _great_',
 })
