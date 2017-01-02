@@ -2,6 +2,9 @@
 
 const _ = require('lodash/fp')
 
+/**
+ * insert an item into an array at index
+ */
 function uncurriedInsert<T>(index: number, item: T, list: Array<T>) {
   return _.concat(
     _.concat(_.slice(0, index, list), item),
